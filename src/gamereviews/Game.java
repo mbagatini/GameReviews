@@ -16,6 +16,7 @@ public class Game {
     private String platform;
     private String score_phrase;
     private float score;
+    private String genre;
     private String editors_choice;
     private int release_year;
 
@@ -50,6 +51,14 @@ public class Game {
     public void setScore(float score) {
         this.score = score;
     }
+    
+    public String getGenre() {
+        return genre;
+    }
+
+    public void setGenre(String genre) {
+        this.genre = genre;
+    }
 
     public String getEditors_choice() {
         return editors_choice;
@@ -66,7 +75,11 @@ public class Game {
     public void setRelease_year(int release_year) {
         this.release_year = release_year;
     }
-    
+
+    @Override
+    public String toString() {
+        return "Game{" + "title=" + title + ", platform=" + platform + ", score_phrase=" + score_phrase + ", score=" + score + ", genre=" + genre + ", editors_choice=" + editors_choice + ", release_year=" + release_year + '}';
+    }
     
     
 }
