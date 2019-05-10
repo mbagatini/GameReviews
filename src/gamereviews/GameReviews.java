@@ -38,7 +38,8 @@ public class GameReviews {
         String s = f.readLine(); // Primeira linhané titulo
         s = f.readLine();
 
-        Map<String, Plataform> map = new TreeMap<String, Plataform>();
+        TreeMap<String, Plataform> map = new TreeMap<String, Plataform>();
+        TreeMap<String, Integer> racing = new TreeMap<String, Integer>();
 
         int i = 2;
 
@@ -76,12 +77,22 @@ public class GameReviews {
 
                 map.put(game.getPlatform(), p);
 
+                if (game.getGenre().equalsIgnoreCase("racing")) {
+                    if (game.getScore_phrase().equalsIgnoreCase("great") || game.getScore_phrase().equalsIgnoreCase("amazing")) {
+                        if (!racing.containsKey(game.getPlatform())) {
+                            racing.put(game.getPlatform(), 1);
+                        } else {
+                            racing.put(game.getPlatform(), racing.get(game.getPlatform()) + 1);
+                        }
+                    }
+                }
+
                 i++;
 
                 s = f.readLine();
             }
         } catch (Exception e) {
-            System.out.println(e +" "+i);
+            System.out.println(e + " " + i);
         }
 
         f.close();
@@ -96,6 +107,20 @@ public class GameReviews {
             System.out.println(" Melhor jogo      : " + map.get(plat).bestGame.getTitle());
             System.out.println(" Pior jogo        : " + map.get(plat).worstGame.getTitle());
         }
+        
+        String best_racing_plataform = null;
+        int max = racing.values().stream().max(Integer::compare).get();
+        
+        for (String plat : racing.keySet()) {
+            if (racing.get(plat) == max) {
+               best_racing_plataform = plat;
+               break;
+            }
+        }
+
+        System.out.println("");
+        System.out.println("Qual a plataforma com os jogos do gênero ‘Racing’ mais bem avaliados?");
+        System.out.println(best_racing_plataform);
     }
 
     private static class Plataform {
